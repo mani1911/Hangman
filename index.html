@@ -13,10 +13,10 @@
             <ul>
                 <li><button class = "normal">Normal</button></li>
                 <li><button class=  "dual">Dual</button></li>
-                <li>Wrong Count : <span class = "wrongCount">0</span> / 6</li>
+                <li class = "score">Wrong Count : <span class = "wrongCount">0</span> / 6</li>
             </ul>
         </nav>
-        <img src = "images/0.jpg" height = "400" alt = "Image not found"/>
+        <img src = "images/0.jpg" width : "300" height = "350" alt = "Image not found"/>
         <div>
             <div class = "answer"></div>
             <div class = "buttons">
@@ -24,7 +24,17 @@
             </div>
         </div>
         <button  class = "reset">Reset</button>
-        
+        <div class = "leaderBoard">
+            <h2>Leader Board</h2>
+            <div class = "scores">
+                <div class = "nmode">Normal Mode : <br>
+                    <span class = "nmodeBoard">Min-Wrongs : </span>
+                </div>
+                <div class = "dmode">Dual Mode : <br>
+                    <span class = "dmodeBoard">Min-Wrongs : </span>
+                </div>
+            </div>
+        </div>
         <script src="index.js" async defer></script>
     </body>
 </html>

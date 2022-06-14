@@ -8,12 +8,24 @@ body{
     width : 100%;
     max-height: 100vh;
     text-align: center;
+    background-color: rgb(248, 212, 254);
 }
 
 .navbar{
     width : 100%;
-    background-color: red;
+    background-color: rgb(26, 6, 30);
+
 }
+
+img{
+    margin: 30px;
+    box-shadow: 10px 10px 18px 0px rgba(0,0,0,0.75);
+}
+
+.leaderBoard{
+    margin : 7px;
+}
+
 
 ul{
     list-style-type: none;
@@ -32,13 +44,7 @@ ul:last-child{
     margin-left: auto;
 }
 
-.normal{
-    width : 3rem;
-}
 
-.dual{
-    width : 3rem;
-}
 
 button{
     width : 2rem;
@@ -49,4 +55,67 @@ button{
 .answer{
     margin-bottom: 10px;
     
+}
+
+.normal{
+    width : 70px;
+    height : 40px;
+    border-radius: 6px;
+    background-color: rgb(79, 13, 91);
+    color : white;
+    letter-spacing: 2px;
+    font-style:italic;
+}
+.dual{
+    width : 70px;
+    height : 40px;
+    border-radius: 6px;
+    background-color: rgb(79, 13, 91);
+    color : white;
+    letter-spacing: 2px;
+    font-style:italic;
+}
+
+.dual:active{
+    background-color: rgb(117, 20, 135);
+}
+
+.normal:active{
+    background-color: rgb(117, 20, 135);
+}
+
+.dual{
+    width : 70px;
+    height : 40px;
+    border-radius: 6px;
+}
+
+.score{
+    color : white;
+}
+
+.reset{
+    width : 60px;
+    height : 35px;
+    border-radius: 6px;
+    background-color: rgb(79, 13, 91);
+    color : white;
+    letter-spacing: 2px;
+    font-style:italic;
+}
+.reset:active{
+    background-color: rgb(117, 20, 135);
+}
+
+.letrBtn{
+    color : white;
+    background-color: rgb(125, 1, 147);
+    width : 50px;
+    height : 30px;
+    border-radius: 10px;
+    font-style: italic;
+}
+
+.letrBtn:disabled{
+    background-color: rgb(190, 12, 222);
 }

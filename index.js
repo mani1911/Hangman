@@ -5,6 +5,8 @@ const answerBlock = document.querySelector('.answer');
 const wrongCount = document.querySelector('.wrongCount');
 const image = document.querySelector('img');
 const resetBtn = document.querySelector('.reset');
+const nmode = document.querySelector('.nmodeBoard');
+const dmode = document.querySelector('.dmodeBoard');
 
 let wrongs = 0;
 let questionWord = "";
@@ -12,6 +14,34 @@ let maxWrong = 6;
 let answer = "";
 let userInput = [];
 let gameOver = false;
+let normalLeaderBoard = `${maxWrong+1}`;
+let dualLeaderBoard = `${maxWrong + 1}`;
+let isNormalMode = true;
+
+localStorage.normal = normalLeaderBoard;
+localStorage.dual = dualLeaderBoard;
+
+const updateLeaderBoard = (mode, wrongs)=>{
+    if(mode){
+        localStorage.normal+= wrongs;
+        console.log(localStorage.normal)
+    }
+    else{
+        localStorage.dual+= wrongs;
+    }
+    setLeaderBoard(mode);
+}
+const setLeaderBoard = (mode)=>{
+    let minWrongs = maxWrong+1; 
+    let str = mode?localStorage.normal:localStorage.hacker;
+    for(let i of str){
+        if(parseInt(i) <= minWrongs){
+            minWrongs = i;
+        }
+    }
+    console.log(minWrongs)
+    mode?nmode.innerHTML = `Min-Wrongs : ${minWrongs}`:dmode.innerHTML = `Min-Wrongs : ${minWrongs}`;  
+}
 
 const replaceChar = (origString, replaceChar, index)=>{
     let firstPart = origString.substr(0, index);
@@ -66,6 +96,7 @@ const createLetterBtns = ()=>{
     for(let letter of buttons){
 
         let newBtn = document.createElement('button');
+        newBtn.classList.add('letrBtn')
         newBtn.innerHTML = letter;
         newBtn.classList.add('letterBtns');
         buttonsContainer.appendChild(newBtn);
@@ -77,12 +108,15 @@ const createLetterBtns = ()=>{
                 console.log('Game Over');
                 wrongCount.innerHTML = maxWrong;
                 displayAnswer();
+                buttonsContainer.style.color=  "red";
                 buttonsContainer.innerHTML = "You Lose";
                 return;
             }
             checkLetter(newBtn.innerHTML);
             if(checkWon()){
+                buttonsContainer.style.color = "green";
                 buttonsContainer.innerHTML = "You Won";
+                updateLeaderBoard(isNormalMode, wrongs)
                 return;
             }
         })
