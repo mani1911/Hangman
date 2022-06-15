@@ -109,12 +109,14 @@ const createLetterBtns = ()=>{
                 wrongCount.innerHTML = maxWrong;
                 displayAnswer();
                 buttonsContainer.style.color=  "red";
+                buttonsContainer.style.fontSize = "25px";
                 buttonsContainer.innerHTML = "You Lose";
                 return;
             }
             checkLetter(newBtn.innerHTML);
             if(checkWon()){
                 buttonsContainer.style.color = "green";
+                buttonsContainer.style.fontSize = "25px";
                 buttonsContainer.innerHTML = "You Won";
                 updateLeaderBoard(isNormalMode, wrongs)
                 return;

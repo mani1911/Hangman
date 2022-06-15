@@ -12,7 +12,7 @@ body{
 }
 
 .navbar{
-    width : 100%;
+    min-width : 100vw;
     background-color: rgb(26, 6, 30);
 
 }
@@ -23,9 +23,20 @@ img{
 }
 
 .leaderBoard{
-    margin : 7px;
+    margin : 5px;
+
 }
 
+.leaderBoard > h2{
+    font-family: 'Roboto Mono', monospace;
+}
+
+.scores{
+    display: grid;
+    grid-template-columns: auto auto; 
+    justify-content: center;  
+    column-gap: 30px;
+}
 
 ul{
     list-style-type: none;
@@ -118,4 +129,17 @@ button{
 
 .letrBtn:disabled{
     background-color: rgb(190, 12, 222);
+}
+
+.nmode, .dmode{
+    letter-spacing: 1px;
+}
+
+@media (max-width: 768px){
+
+    img{
+        width : 300px;
+        height : 300px;
+    }
+
 }
