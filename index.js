@@ -7,15 +7,19 @@ const image = document.querySelector('img');
 const resetBtn = document.querySelector('.reset');
 const nmode = document.querySelector('.nmodeBoard');
 const dmode = document.querySelector('.dmodeBoard');
+const goBtn = document.querySelector('.goBtn');
+const dualInput = document.querySelector('#dualInput');
+const dualBlock = document.querySelector('.dualBlock');
 
+let normalMode = true;
 let wrongs = 0;
 let questionWord = "";
 let maxWrong = 6;
 let answer = "";
 let gameOver = false;
 let normalLeaderBoard = `${maxWrong+1}`;
-let dualLeaderBoard = `${maxWrong + 1}`;
-let isNormalMode = true;
+let dualLeaderBoard = `${maxWrong+1}`;
+
 
 localStorage.normal = normalLeaderBoard;
 localStorage.dual = dualLeaderBoard;
@@ -27,12 +31,13 @@ const updateLeaderBoard = (mode, wrongs)=>{
     }
     else{
         localStorage.dual+= wrongs;
+        console.log(localStorage.dual)
     }
     setLeaderBoard(mode);
 }
 const setLeaderBoard = (mode)=>{
     let minWrongs = maxWrong+1; 
-    let str = mode?localStorage.normal:localStorage.hacker;
+    let str = mode?localStorage.normal:localStorage.dual;
     for(let i of str){
         if(parseInt(i) <= minWrongs){
             minWrongs = i;
@@ -48,6 +53,27 @@ const replaceChar = (origString, replaceChar, index)=>{
     let newString = firstPart + replaceChar + lastPart;
     return newString;
 }
+
+goBtn.addEventListener('click', (e)=>{
+    normalMode = false;
+    wrongs = 0;
+    wrongCount.innerHTML = wrongs;
+    if(dualInput.value === ""){
+        buttonsContainer.style.color = "red";
+        buttonsContainer.style.fontSize = "25px";
+        buttonsContainer.innerHTML = "Input is Empty";
+    }
+    else{
+        questionWord = dualInput.value.toUpperCase();
+        buttonsContainer.innerHTML = "";
+        console.log(questionWord);
+        console.log(normalMode)
+        handleAnswerBlock(normalMode);
+        createLetterBtns();
+    }
+
+    
+})
 
 const setRandomWord = async ()=>{
     let res = await fetch('https://random-word-api.herokuapp.com/word');
@@ -116,42 +142,71 @@ const createLetterBtns = ()=>{
                 buttonsContainer.style.color = "green";
                 buttonsContainer.style.fontSize = "25px";
                 buttonsContainer.innerHTML = "You Won";
-                updateLeaderBoard(isNormalMode, wrongs)
+                updateLeaderBoard(normalMode, wrongs)
                 return;
             }
         })
     }
 }
 
-const handleAnswerBlock = async ()=>{
-    questionWord = await setRandomWord();
+const handleAnswerBlock = async (mode)=>{
+    if(mode){
+        questionWord = await setRandomWord();
+    }
     buttonsContainer.style.display = "block";
-
+    answerBlock.innerHTML = "";
     for(let i in questionWord){
         answerBlock.innerHTML += " __"
     }
+    answerBlock.style.display = "block";
 }
 
 const startGame = ()=>{
-    handleAnswerBlock();
+    handleAnswerBlock(normalMode);
     createLetterBtns();
 }
-
+const reset = ()=>{
+    if(normalMode){
+        dualBlock.style.display = "none"
+        answerBlock.style.display = "block"
+        buttonsContainer.style.display = "none";
+        image.src = "images/0.jpg";
+        wrongs = 0;
+        wrongCount.innerHTML = wrongs;
+        questionWord = "";
+        answer = "";
+        gameOver = false;
+        buttonsContainer.innerHTML = "";
+        startGame();
+    }
+    else{
+        dualInput.value = "";
+        dualBlock.style.display = "block";
+        answerBlock.style.display = "none";
+        buttonsContainer.style.display = "none";
+        image.src = "images/0.jpg";
+        wrongs =0;
+        wrongCount.innerHTML = wrongs;
+        questionWord = "";
+        answer = "";
+        gameOver = false;
+        buttonsContainer.innerHTML = "";
+    }
+    
+}
 startGame();
 resetBtn.addEventListener('click', ()=>{
-    buttonsContainer.style.display = "none";
-    image.src = "images/0.jpg"
-    answerBlock.innerHTML = "";
-    wrongs = 0;
-    wrongCount.innerHTML = wrongs;
-    questionWord = "";
-    answer = "";
-    gameOver = false;
-    buttonsContainer.innerHTML = "";
-    startGame();
-    
+    reset();
 })
 
+normalBtn.addEventListener('click', ()=>{
+    normalMode = true;
+    reset();
+});
+dualBtn.addEventListener('click', ()=>{
+    normalMode = false;
+    reset();
+})
 
 
 

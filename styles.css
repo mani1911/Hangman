@@ -23,13 +23,12 @@ img{
 }
 
 .leaderBoard{
-    margin : 5px;
+    margin-bottom : 15px;
 
 }
 
 .leaderBoard > h2{
     font-family: 'Roboto Mono', monospace;
-    margin-bottom: 5px;
 }
 
 .scores{
@@ -139,6 +138,30 @@ button{
 
 .buttons{
     display: none;
+}
+
+.dualBlock{
+    display : none;
+    margin : 8px auto;
+    
+}
+#dualInput{
+    width : 200px;
+    height : 30px;
+    border-radius: 15px;
+    padding-left: 7px;
+}
+
+.goBtn{
+    color : white;
+    background-color: rgb(99, 10, 114);
+    width : 50px;
+    height : 30px;
+    border-radius: 10px;
+    font-style: italic;
+}
+.goBtn:active{
+    background-color: rgb(117, 20, 135);
 }
 
 @media (max-width: 768px){
