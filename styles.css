@@ -29,6 +29,7 @@ img{
 
 .leaderBoard > h2{
     font-family: 'Roboto Mono', monospace;
+    margin-bottom: 5px;
 }
 
 .scores{
@@ -119,6 +120,7 @@ button{
 }
 
 .letrBtn{
+
     color : white;
     background-color: rgb(125, 1, 147);
     width : 50px;
@@ -133,6 +135,10 @@ button{
 
 .nmode, .dmode{
     letter-spacing: 1px;
+}
+
+.buttons{
+    display: none;
 }
 
 @media (max-width: 768px){

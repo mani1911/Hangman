@@ -12,7 +12,6 @@ let wrongs = 0;
 let questionWord = "";
 let maxWrong = 6;
 let answer = "";
-let userInput = [];
 let gameOver = false;
 let normalLeaderBoard = `${maxWrong+1}`;
 let dualLeaderBoard = `${maxWrong + 1}`;
@@ -39,7 +38,6 @@ const setLeaderBoard = (mode)=>{
             minWrongs = i;
         }
     }
-    console.log(minWrongs)
     mode?nmode.innerHTML = `Min-Wrongs : ${minWrongs}`:dmode.innerHTML = `Min-Wrongs : ${minWrongs}`;  
 }
 
@@ -127,7 +125,8 @@ const createLetterBtns = ()=>{
 
 const handleAnswerBlock = async ()=>{
     questionWord = await setRandomWord();
-    console.log(questionWord);
+    buttonsContainer.style.display = "block";
+
     for(let i in questionWord){
         answerBlock.innerHTML += " __"
     }
@@ -140,6 +139,7 @@ const startGame = ()=>{
 
 startGame();
 resetBtn.addEventListener('click', ()=>{
+    buttonsContainer.style.display = "none";
     image.src = "images/0.jpg"
     answerBlock.innerHTML = "";
     wrongs = 0;
