@@ -57,6 +57,7 @@ const replaceChar = (origString, replaceChar, index)=>{
 goBtn.addEventListener('click', (e)=>{
     normalMode = false;
     wrongs = 0;
+    image.src = `images/${wrongs}.jpg`;
     wrongCount.innerHTML = wrongs;
     if(dualInput.value === ""){
         buttonsContainer.style.color = "red";
