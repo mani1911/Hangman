@@ -1,3 +1,5 @@
+
+// 1
 const normalBtn = document.querySelector('.normal');
 const dualBtn = document.querySelector('.dual');
 const buttonsContainer = document.querySelector('.buttons');
@@ -11,6 +13,7 @@ const goBtn = document.querySelector('.goBtn');
 const dualInput = document.querySelector('#dualInput');
 const dualBlock = document.querySelector('.dualBlock');
 
+// 2
 let normalMode = true;
 let wrongs = 0;
 let questionWord = "";
@@ -20,15 +23,12 @@ let gameOver = false;
 let normalLeaderBoard = `${maxWrong+1}`;
 let dualLeaderBoard = `${maxWrong+1}`;
 
-
-// localStorage.normal = normalLeaderBoard;
-// localStorage.dual = dualLeaderBoard;
-// console.log(localStorage.getItem("normal"));
 const updateLeaderBoard = (mode, wrongs)=>{
     if(mode && (localStorage.getItem("normal") === null || wrongs < localStorage.getItem("normal"))) localStorage.setItem("normal", wrongs);
     else if(!mode && (localStorage.getItem("dual") === null || wrongs < localStorage.getItem("dual"))) localStorage.setItem("dual", wrongs);
     setLeaderBoard();
 }
+
 const setLeaderBoard = ()=>{
     nmode.innerHTML = `Min-Wrongs : ${localStorage.getItem("normal")}`;
     dmode.innerHTML = `Min-Wrongs : ${localStorage.getItem("dual")}`;  
@@ -83,7 +83,7 @@ const checkLetter = (l)=>{
         let ans1 = answerBlock.innerHTML;
         for(let i=0; i<questionWord.length; i++){
             ans1 = answerBlock.innerHTML;
-             if(questionWord[i] == l){
+             if(questionWord[i] === l){
                 ans1 = replaceChar(ans1, l, 3*i+1);
                 ans1 = replaceChar(ans1, " ", 3*i+2);
                 answerBlock.innerHTML = ans1;
@@ -111,7 +111,6 @@ const createLetterBtns = ()=>{
         let newBtn = document.createElement('button');
         newBtn.classList.add('letrBtn')
         newBtn.innerHTML = letter;
-        newBtn.classList.add('letterBtns');
         buttonsContainer.appendChild(newBtn);
         newBtn.addEventListener('click', ()=>{
             newBtn.disabled = true;
@@ -144,16 +143,18 @@ const handleAnswerBlock = async (mode)=>{
     }
     buttonsContainer.style.display = "block";
     answerBlock.innerHTML = "";
+    answerBlock.style.display = "block";
     for(let i in questionWord){
         answerBlock.innerHTML += " __"
     }
-    answerBlock.style.display = "block";
+
 }
 
 const startGame = ()=>{
     setLeaderBoard(); 
-    handleAnswerBlock(normalMode);
     createLetterBtns();
+    handleAnswerBlock(normalMode);
+
 }
 const reset = ()=>{
     if(normalMode){
