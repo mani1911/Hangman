@@ -21,29 +21,17 @@ let normalLeaderBoard = `${maxWrong+1}`;
 let dualLeaderBoard = `${maxWrong+1}`;
 
 
-localStorage.normal = normalLeaderBoard;
-localStorage.dual = dualLeaderBoard;
-
+// localStorage.normal = normalLeaderBoard;
+// localStorage.dual = dualLeaderBoard;
+// console.log(localStorage.getItem("normal"));
 const updateLeaderBoard = (mode, wrongs)=>{
-    if(mode){
-        localStorage.normal+= wrongs;
-        console.log(localStorage.normal)
-    }
-    else{
-        localStorage.dual+= wrongs;
-        console.log(localStorage.dual)
-    }
-    setLeaderBoard(mode);
+    if(mode && (localStorage.getItem("normal") === null || wrongs < localStorage.getItem("normal"))) localStorage.setItem("normal", wrongs);
+    else if(!mode && (localStorage.getItem("dual") === null || wrongs < localStorage.getItem("dual"))) localStorage.setItem("dual", wrongs);
+    setLeaderBoard();
 }
-const setLeaderBoard = (mode)=>{
-    let minWrongs = maxWrong+1; 
-    let str = mode?localStorage.normal:localStorage.dual;
-    for(let i of str){
-        if(parseInt(i) <= minWrongs){
-            minWrongs = i;
-        }
-    }
-    mode?nmode.innerHTML = `Min-Wrongs : ${minWrongs}`:dmode.innerHTML = `Min-Wrongs : ${minWrongs}`;  
+const setLeaderBoard = ()=>{
+    nmode.innerHTML = `Min-Wrongs : ${localStorage.getItem("normal")}`;
+    dmode.innerHTML = `Min-Wrongs : ${localStorage.getItem("dual")}`;  
 }
 
 const replaceChar = (origString, replaceChar, index)=>{
@@ -163,6 +151,7 @@ const handleAnswerBlock = async (mode)=>{
 }
 
 const startGame = ()=>{
+    setLeaderBoard(); 
     handleAnswerBlock(normalMode);
     createLetterBtns();
 }
@@ -195,7 +184,9 @@ const reset = ()=>{
     }
     
 }
+reset();
 startGame();
+
 resetBtn.addEventListener('click', ()=>{
     reset();
 })
